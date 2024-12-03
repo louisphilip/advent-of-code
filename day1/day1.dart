@@ -22,9 +22,26 @@ void main() {
 
   int sumOfDifferences = differences.reduce((a, b) => a + b);
 
+  // part 2
+  // Initialize a map to store the results of how many times each number in list1 appears in list2
+  Map<int, int> countMap = {};
+
+  // Count how many times each number in list1 appears in list2
+  for (int num in list1) {
+    int count = list2.where((element) => element == num).length;
+    countMap[num] = count;
+  }
+
+  // Calculate the sum of number * count for each number in list1
+  int weightedSum = 0;
+    for (int num in countMap.keys) {
+      weightedSum += num * countMap[num]!;
+  }
+
   // Printing the sorted lists and their differences
   print('Sorted list1: $list1');
   print('Sorted list2: $list2');
   print('Differences between corresponding values: $differences');
   print('Sum of differences: $sumOfDifferences');
+  print('Weighted sum (number * count): $weightedSum');
 }
