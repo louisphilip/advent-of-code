@@ -1,4 +1,5 @@
-# See https:
+# See https://www.dartlang.org/guides/libraries/private-files
+
 # Files and directories created by pub
 .dart_tool/
 .packages
@@ -24,3 +25,4 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+.DS_Store
