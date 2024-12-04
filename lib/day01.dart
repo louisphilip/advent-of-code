@@ -4,8 +4,8 @@ main() async {
   // DAY 1
   try {
     // Read the file as a string
-    String fileContent1 = await readFiles('inputs/day1/numbers1.txt');
-    String fileContent2 = await readFiles('inputs/day1/numbers2.txt');
+    String fileContent1 = await readFiles('inputs/day01/numbers1.txt');
+    String fileContent2 = await readFiles('inputs/day01/numbers2.txt');
 
     // Split the content into individual numbers (assuming numbers are space-separated or on separate lines)
     List<String> stringList1 = fileContent1

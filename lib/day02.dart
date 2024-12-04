@@ -1,4 +1,4 @@
-// Part2 Day2
+// Part2 day02
 // Function to check if removing one level makes the report safe
 import 'dart:io';
 
@@ -16,7 +16,7 @@ bool canBeMadeSafeByRemovingOneLevel(List<int> report) {
   return false; // If no safe report can be formed by removing one level, return false
 }
 
-// Part1 Day2
+// Part1 day02
 // Function to check if a report is safe
 bool isSafe(List<int> report) {
   bool? isIncreasing; // To track if the levels are increasing or decreasing
@@ -39,7 +39,7 @@ bool isSafe(List<int> report) {
 }
 
 main() async {
-  var file = File('inputs/day2/reports.txt');
+  var file = File('inputs/day02/reports.txt');
 
   // Read lines from the file asynchronously
   try {

@@ -1,11 +1,11 @@
-// Part2 Day3
+// Part2 day03
 
 import 'dart:io';
 
 Future<void> main() async {
   // Path to the file containing the corrupted memory
   var filePath =
-      'inputs/day3/corruptedMemory.txt'; // Change this to your file path
+      'inputs/day03/corruptedMemory.txt'; // Change this to your file path
 
   try {
     // Read the file content as a string
