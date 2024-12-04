@@ -6,6 +6,23 @@ int calculate() {
   return 6 * 7;
 }
 
+// Part2 Day2
+// Function to check if removing one level makes the report safe
+bool canBeMadeSafeByRemovingOneLevel(List<int> report) {
+  // Try removing one level at a time
+  for (int i = 0; i < report.length; i++) {
+    // Create a new report without the i-th level
+    List<int> newReport = List.from(report)..removeAt(i);
+
+    // Check if the new report is safe
+    if (isSafe(newReport)) {
+      return true;  // If any new report is safe, return true
+    }
+  }
+  return false;  // If no safe report can be formed by removing one level, return false
+}
+
+// Part1 Day2
 // Function to check if a report is safe
 bool isSafe(List<int> report) {
   bool? isIncreasing = null;  // To track if the levels are increasing or decreasing
@@ -42,7 +59,7 @@ day2() async {
     // Check each report and count the safe reports
     int safeReportsCount = 0;
     for (var report in reports) {
-      if (isSafe(report)) {
+      if (isSafe(report)|| canBeMadeSafeByRemovingOneLevel(report)) {
         safeReportsCount++;
       }
     }
