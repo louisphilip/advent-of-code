@@ -1,3 +1,5 @@
+// Part2 Day3
+
 import 'dart:io';
 
 Future<void> main() async {
@@ -9,24 +11,53 @@ Future<void> main() async {
     // Read the file content as a string
     String corruptedMemory = await File(filePath).readAsString();
 
-    // Use a regular expression to find valid mul(X,Y) patterns
-    RegExp regExp = RegExp(
-        r'mul\((\d+),(\d+)\)'); // Match mul(X,Y) where X and Y are numbers
+    // Regular expressions for mul, do, and don't instructions
+    RegExp mulRegExp = RegExp(r'mul\((\d+),(\d+)\)');
+    RegExp doRegExp = RegExp(r'do\(\)');
+    RegExp dontRegExp = RegExp(r"don't\(\)");
 
-    // Find all matches in the corrupted memory
-    Iterable<RegExpMatch> matches = regExp.allMatches(corruptedMemory);
-
+    // Tracking whether mul instructions are enabled or not
+    bool mulEnabled = true;
     int totalSum = 0;
 
-    // Iterate over all matches and calculate the sum
-    for (var match in matches) {
-      int x = int.parse(match.group(1)!); // Get the first number (X)
-      int y = int.parse(match.group(2)!); // Get the second number (Y)
-      totalSum += x * y; // Multiply and add to total sum
+    // Process each match in the corrupted memory
+    int currentIndex = 0;
+    while (currentIndex < corruptedMemory.length) {
+      // Check for mul(X,Y) instructions
+      var mulMatch = mulRegExp.matchAsPrefix(corruptedMemory, currentIndex);
+      if (mulMatch != null) {
+        // If mul is enabled, process it
+        if (mulEnabled) {
+          int x = int.parse(mulMatch.group(1)!);
+          int y = int.parse(mulMatch.group(2)!);
+          totalSum += x * y;
+        }
+        // Move the index to the end of the current mul instruction
+        currentIndex = mulMatch.end;
+      }
+
+      // Check for do() instruction
+      var doMatch = doRegExp.matchAsPrefix(corruptedMemory, currentIndex);
+      if (doMatch != null) {
+        mulEnabled = true; // Enable multiplications
+        currentIndex = doMatch.end;
+      }
+
+      // Check for don't() instruction
+      var dontMatch = dontRegExp.matchAsPrefix(corruptedMemory, currentIndex);
+      if (dontMatch != null) {
+        mulEnabled = false; // Disable multiplications
+        currentIndex = dontMatch.end;
+      }
+
+      // If no matches found, move to the next character
+      if (mulMatch == null && doMatch == null && dontMatch == null) {
+        currentIndex++;
+      }
     }
 
     // Output the total sum
-    print('Total sum of valid multiplications: $totalSum');
+    print('Total sum of enabled multiplications: $totalSum');
   } catch (e) {
     print('Error reading file: $e');
   }
